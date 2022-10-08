@@ -30,6 +30,7 @@ public class StandaloneServer {
     /**
      * Launch the server on its host mode.
      * @param args -p : set port
+     * @format forge server -p 15995
      */
     public static void start(String[] args) {
 
