@@ -6,12 +6,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,6 +20,7 @@ package forge.view;
 import forge.GuiDesktop;
 import forge.Singletons;
 import forge.error.ExceptionHandler;
+import forge.gamemodes.net.StandaloneServer;
 import forge.gui.GuiBase;
 import forge.gui.card.CardReaderExperiments;
 import forge.util.BuildInfo;
@@ -41,7 +42,7 @@ public final class Main {
             options.setTag("Java Version", System.getProperty("java.version"));
         }, true);
 
-        // HACK - temporary solution to "Comparison method violates it's general contract!" crash
+        // HACK - temporary solution to "Comparison method violates its general contract!" crash
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 
         //Turn off the Java 2D system's use of Direct3D to improve rendering speed (particularly when Full Screen)
@@ -64,30 +65,30 @@ public final class Main {
 
         // command line startup here
         String mode = args[0].toLowerCase();
-        
+
         switch(mode) {
             case "sim":
                 SimulateMatch.simulate(args);
                 break;
 
             case "parse":
-            	CardReaderExperiments.parseAllCards(args);
+                CardReaderExperiments.parseAllCards(args);
                 break;
 
             case "server":
-                System.out.println("Dedicated server mode.\nNot implemented.");
-                break;
-            
+                StandaloneServer.start(args);
+                return;
+
             default:
                 System.out.println("Unknown mode.\nKnown mode is 'sim', 'parse' ");
                 break;
         }
-        
+
         System.exit(0);
     }
 
     @SuppressWarnings("deprecation")
-	@Override
+    @Override
     protected void finalize() throws Throwable {
         try {
             ExceptionHandler.unregisterErrorHandling();
